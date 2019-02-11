@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Letsencrypt Helper Plugin
+Plugin Name: Letsencrypt Helper
 Plugin URI:  github.com/ktichmann/letsencrypt-helper
 Description: A letsencrypt helper plugin that allows management of ssl certificates from the wordpress frontend.
 Version:     0.1
@@ -29,7 +29,6 @@ function lets_helper_enqueue_script() {
 }
 add_action( 'admin_enqueue_scripts', 'lets_helper_enqueue_script' );
 
-require plugin_dir_path( __FILE__ ) . 'includes/admin-blog-dashboard.php';
 require plugin_dir_path(__FILE__) . 'Letsencryptor.php';
 
 // Added per blog menu items https://developer.wordpress.org/reference/functions/add_menu_page/ 
