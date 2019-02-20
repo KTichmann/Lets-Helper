@@ -21,20 +21,15 @@ if [ $1 == 'changeemail' ]; then
   ./certbot-auto register --update-registration --email $2 --non-interactive
 fi
 
-if [ $1 == 'updatevhosts' ]
-#$1 is update_vhosts
-#$2 is domain 1
-#$3 is the first letter of domain 1
-then
+if [ $1 == 'updatevhosts' ]; then
     cd /
-    touch /opt/bitnami/apps/wordpress/conf/vhosts-$3.conf
-    echo "<VirtualHost *:80>
+    echo "#$2
+  <VirtualHost *:80>
         ServerName $2
         ServerAlias *.$2
         DocumentRoot \"/opt/bitnami/apps/wordpress/htdocs\"
         Include \"/opt/bitnami/apps/wordpress/conf/httpd-app.conf\"
   </VirtualHost>
-
   <VirtualHost *:443>
         SSLEngine on
         DocumentRoot \"/opt/bitnami/apps/wordpress/htdocs\"
@@ -44,14 +39,20 @@ then
         SSLCertificateKeyFile \"/etc/letsencrypt/live/$2/privkey.pem\"
         SSLCertificateChainFile \"/etc/letsencrypt/live/$2/fullchain.pem\"
         Include \"/opt/bitnami/apps/wordpress/conf/httpd-app.conf\"
-  </VirtualHost>" >> /opt/bitnami/apps/wordpress/conf/vhosts-$3.conf
+  </VirtualHost>
+  #end" >> /opt/bitnami/apps/wordpress/conf/httpd-vhosts.conf
 
-  gsutil rsync -p -c -r -d /etc/letsencrypt gs://main-bonline-518506938661-wp-data/app-certificates
-  gsutil rsync -p -c -r -d /opt/bitnami/apps/wordpress/conf gs://main-bonline-518506938661-wp-data/app-vhosts
+  # gsutil rsync -p -c -r -d /etc/letsencrypt gs://main-bonline-518506938661-wp-data/app-certificates
+  # gsutil rsync -p -c -r -d /opt/bitnami/apps/wordpress/conf gs://main-bonline-518506938661-wp-data/app-vhosts
 fi
 
 if [ $1 == "revokecert" ]
 then
+  
   cd /
   echo "Y" | ./certbot-auto revoke --cert-path /etc/letsencrypt/live/$2/cert.pem --key-path /etc/letsencrypt/live/$2/privkey.pem
+
+  #remove virtual-hosts from httpd-vhosts.conf file
+  sed -i /opt/bitnami/apps/wordpress/conf/httpd-vhosts.conf -re "/#$2/, /#end/d"
+
 fi
