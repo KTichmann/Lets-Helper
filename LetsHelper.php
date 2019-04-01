@@ -36,7 +36,6 @@ function lh_add_menu_page() {
     if(is_super_admin()){
         add_menu_page('Lets Helper', 'Letsencrypt Helper', 'manage_network', 'lets_helper', 'lh_letsencrypt_init');
     }
-    // add_submenu_page('bonline_admin_info_page','client_details_page', 'Client Details', 'manage_network', 'client_details_page', 'client_details_page');
 }
 register_activation_hook(__FILE__, 'letsencrypt_create_db_table');
 
