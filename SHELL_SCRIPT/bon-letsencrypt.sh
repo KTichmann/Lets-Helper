@@ -41,9 +41,6 @@ if [ $1 == 'updatevhosts' ]; then
         Include \"/opt/bitnami/apps/wordpress/conf/httpd-app.conf\"
   </VirtualHost>
   #end" >> /opt/bitnami/apps/wordpress/conf/httpd-vhosts.conf
-
-  # gsutil rsync -p -c -r -d /etc/letsencrypt gs://main-bonline-518506938661-wp-data/app-certificates
-  # gsutil rsync -p -c -r -d /opt/bitnami/apps/wordpress/conf gs://main-bonline-518506938661-wp-data/app-vhosts
 fi
 
 if [ $1 == "revokecert" ]
