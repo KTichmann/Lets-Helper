@@ -29,7 +29,7 @@ function lets_helper_enqueue_script() {
 }
 add_action( 'admin_enqueue_scripts', 'lets_helper_enqueue_script' );
 
-require plugin_dir_path(__FILE__) . 'Letsencryptor.php';
+require plugin_dir_path(__FILE__) . 'includes/Letsencryptor.php';
 
 // Added per blog menu items https://developer.wordpress.org/reference/functions/add_menu_page/ 
 function lh_add_menu_page() {
